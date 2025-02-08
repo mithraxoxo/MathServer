@@ -2,14 +2,10 @@
 ## Date:08.02.2025
 
 ## AIM:
- To design a website to calculate the power of a lamp filament in an incandescent bulb in the server side. 
-
+To design a website to find total surface area of a square prism in server side.
 
 ## FORMULA:
-P = I<sup>2</sup>R
-<br> P --> Power (in watts)
-<br> I --> Intensity
-<br> R --> Resistance
+![image](https://github.com/selvasachein/MathServer/assets/120453887/8ecc8d12-b9a9-43df-be0b-711f299d796d)
 
 ## DESIGN STEPS:
 
@@ -32,114 +28,105 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
+index.html
 ```
-math.html
 <html>
 <head>
-    <title>math</title>
-    <style>
-        
-h1{
-    border: 2px solid black;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 5px;
-    position: fixed;
-    top: 200px;
-    right: 500px;
-    font-size: xx-large;
-    font-weight: bolder;
-    font-variant: small-caps;
-    background: linear-gradient(to bottom,red,yellow,red);
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    color: grey;
-}
-form{
-    border: 2px solid black;
-    background-color: rgba(128, 128, 128, 0.064) ;
-    padding: 30px;
-    margin: 10px;
-    border-radius: 10px;
-    width: 425px;
-    position: fixed;
-    top: 300px;
-    left: 527px;
-   
-    background-size: 60%;
-    background-repeat: no-repeat;
-    background-position: left;
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Area of Square Prism</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style type="text/css">
+        body {
+            background-color: black;
+            margin: 0; /* Add this to remove default body margin */
+        }
     
-}
-
+        .edge {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .box {
+            display: block;
+            width: 500px;
+            min-height: 300px;
+            font-size: 20px;
+            background: rgb(0, 255, 60); /* Change the background color to green */
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+    
+        .formelt {
+            color: black;
+            text-align: center;
+            margin-top: 7px;
+            margin-bottom: 6px;
+        }
+    
+        h1 {
+            color: black;
+            text-align: center;
+            padding-top: 20px;
+        }
+    
+        input {
+            margin: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
     </style>
+    
 </head>
-<body>
-    <h1 align="center" > power of a lamp filament</h1>
-    <form align="center" method="POST">
-    {%csrf_token%}
-     
-    <div class="power">
 
-        <label for="INTENSITY"><b>INTENSITY:</b></label>
-        <input type="text" name="intensity" id="INTENSITY" placeholder="Enter the Value" value="{{i}}">
+<body>
+    <div class="edge">
+        <div class="box">
+            <h1>Area of a Square Prism</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="formelt">
+                    Side : <input type="text" name="length" value="{{l}}"></input>(in m)<br />
+                </div>
+                <div class="formelt">
+                    Height : <input type="text" name="breadth" value="{{b}}"></input>(in m)<br />
+                </div>
+                <div class="formelt">
+                    <input type="submit" value="Calculate"></input><br />
+                </div>
+                <div class="formelt">
+                    Area : <input type="text" name="area" value="{{area}}"></input>m<sup>2</sup><br />
+                </div>
+            </form>
+        </div>
     </div>
-    <br>
-    <div class="power">
-        <label for="RESISTANCE"><b>RESISTANCE:</b></label>
-        <input type="text" name="resistance" id="RESISTANCE" placeholder="Enter the Value" value="{{r}}">
-    </div>
-    <br>
-    <input type="submit" value="CALCULATE">
-    <br>
-    <br>
-    <div class="power">
-        <label for="POWER"><b>POWER:</b></label>
-        <input type="text" name="POWER" id="POWER" placeholder="Answer" value="{{power}}">
-        
-    </div>
-</form>
 </body>
 </html>
-
-views.py
-from django.shortcuts import render
-def powerlamp(request): 
-    context={} 
-    context['power']="0" 
-    context['i']="0" 
-    context['r']="0" 
-    if request.method=='POST': 
-        print("POST method is used")
-        i=request.POST.get('intensity','0')
-        r=request.POST.get('resistance','0')
-        print('request=',request) 
-        print('intensity=',i) 
-        print('resistance=',r) 
-        power=(int(i) ** 2 ) * int(r) 
-        context['power']=power
-        context['i']=i
-        context['r']=r 
-        print('Power=',power) 
-    return render(request,'mathapp\math.html',context)
-
+```
 urls.py
-from django.contrib import admin 
-from django.urls import path 
-from mathapp import views 
-urlpatterns = [ 
-    path('admin/', admin.site.urls), 
-    path('powerlamp/',views.powerlamp,name="powerlamp"),
-    path('',views.powerlamp,name="powerlamproot")
+```
+from django.contrib import admin
+from django.urls import path
+from mathapp import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('areaofrectangle/',views.rectarea,name="areaofrectangle"),
+    path('',views.rectarea,name="areaofrectangleroot")
 ]
-
-
 ```
 
+
 ## SERVER SIDE PROCESSING:
-![alt text](<Screenshot 2024-12-08 141152.png>)
+![Screenshot 2023-11-15 164010](https://github.com/praveenck23009864/MathServer/assets/141472050/994b339b-c443-4714-9256-b689fc56898b)
+
 
 ## HOMEPAGE:
-![alt text](<Screenshot 2024-12-08 141120.png>)
+![Screenshot 2023-11-15 163940](https://github.com/praveenck23009864/MathServer/assets/141472050/503b9a03-6d0e-41cd-a4b4-9854121b4ab1)
+
 
 ## RESULT:
 The program for performing server side processing is completed successfully.
